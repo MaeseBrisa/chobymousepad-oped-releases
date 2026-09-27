@@ -1,0 +1,94 @@
+name: Publish v1.0.1
+
+on:
+  push:
+    paths:
+      - "release-trigger-v1.0.1.txt"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24.x"
+
+      - name: Reconstruct build payload
+        shell: bash
+        run: |
+          cat build/v1.0.0/part* > payload.b64
+          base64 -d payload.b64 > payload.tar.xz
+          tar -xJf payload.tar.xz
+          test -f main.go
+          test -f app64.ico
+
+      - name: Set v1.0.1 version
+        shell: bash
+        run: |
+          sed -i 's/1\.0\.0/1.0.1/g' main.go
+
+      - name: Create multiresolution cat icon
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y imagemagick
+          convert 'app64.ico[0]' -resize 256x256 icon256.png
+          convert icon256.png -define icon:auto-resize=256,128,64,48,32,16 app_multisize.ico
+          identify app_multisize.ico
+
+      - name: Embed Windows icon resource
+        shell: bash
+        run: |
+          go install github.com/akavel/rsrc@latest
+          "$(go env GOPATH)/bin/rsrc" -arch amd64 -ico app_multisize.ico -o rsrc.syso
+          test -s rsrc.syso
+
+      - name: Build Windows x64 including resources
+        shell: bash
+        run: |
+          GO111MODULE=off GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -trimpath -ldflags='-s -w -H=windowsgui' -o OP_ED_calificados_de_ChobyMousepad_v1.0.1.exe
+          test -s OP_ED_calificados_de_ChobyMousepad_v1.0.1.exe
+          objdump -h OP_ED_calificados_de_ChobyMousepad_v1.0.1.exe | grep -q '.rsrc'
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh release create v1.0.1 \
+            OP_ED_calificados_de_ChobyMousepad_v1.0.1.exe \
+            --title "OP/ED calificados de ChobyMousepad v1.0.1" \
+            --notes "Corrección visual: el icono del gato ahora queda incrustado correctamente en el ejecutable de Windows. Sin cambios funcionales respecto de v1.0.0."
+
+      - name: Update stable manifest
+        shell: bash
+        run: |
+          SHA="$(sha256sum OP_ED_calificados_de_ChobyMousepad_v1.0.1.exe | awk '{print $1}')"
+          python3 - "$SHA" <<'PY'
+          import json, sys
+          sha = sys.argv[1]
+          data = {
+              "enabled": True,
+              "channel": "stable",
+              "version": "1.0.1",
+              "mandatory": False,
+              "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.0.1/OP_ED_calificados_de_ChobyMousepad_v1.0.1.exe",
+              "sha256": sha,
+              "notes": "Corrección del icono del gato en el ejecutable de Windows. Sin cambios funcionales respecto de v1.0.0."
+          }
+          with open("latest.json", "w", encoding="utf-8") as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+              f.write("\n")
+          PY
+          git config user.name "chobymousepad-release-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add latest.json
+          git commit -m "Publicar v1.0.1 en canal estable"
+          git push
