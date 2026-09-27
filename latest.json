@@ -1,9 +1,9 @@
 {
   "enabled": true,
   "channel": "stable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "mandatory": false,
-  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.0.0/OP_ED_calificados_de_ChobyMousepad_v1.0.0.exe",
-  "sha256": "2943afe42f9ab868c2aff7d391f294bd08983e8922f893b8c673dbb295270ba7",
-  "notes": "Primera versión oficial de OP/ED calificados de ChobyMousepad. Base funcional v1.10.2 y sistema de actualización automática preparado para futuras versiones."
+  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.0.1/OP_ED_calificados_de_ChobyMousepad_v1.0.1.exe",
+  "sha256": "2b9147c4347f9f956ca685059658e538d8346bdfe4ed5cfc37706dd9bd913bd6",
+  "notes": "Corrección del icono del gato en el ejecutable de Windows. Sin cambios funcionales respecto de v1.0.0."
 }
