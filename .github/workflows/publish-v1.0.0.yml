@@ -27,13 +27,24 @@ jobs:
           base64 -d payload.b64 > payload.tar.xz
           tar -xJf payload.tar.xz
           test -f main.go
-          test -f app64.ico
 
-      - name: Embed Windows icon resource
+      - name: Recreate application icon
         shell: bash
         run: |
+          python3 - <<'PY'
+          import base64, re, struct
+          from pathlib import Path
+          s = Path('main.go').read_text(encoding='utf-8')
+          m = re.search(r'data:image/png;base64,([^\"]+)', s)
+          if not m:
+              raise SystemExit('favicon base64 not found')
+          png = base64.b64decode(m.group(1))
+          header = struct.pack('<HHH', 0, 1, 1)
+          entry = struct.pack('<BBBBHHII', 64, 64, 0, 0, 1, 32, len(png), 22)
+          Path('app.ico').write_bytes(header + entry + png)
+          PY
           go install github.com/akavel/rsrc@latest
-          "$(go env GOPATH)/bin/rsrc" -arch amd64 -ico app64.ico -o rsrc.syso
+          "$(go env GOPATH)/bin/rsrc" -arch amd64 -ico app.ico -o rsrc.syso
 
       - name: Build Windows x64
         shell: bash
