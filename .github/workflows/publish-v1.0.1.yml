@@ -27,19 +27,32 @@ jobs:
           base64 -d payload.b64 > payload.tar.xz
           tar -xJf payload.tar.xz
           test -f main.go
-          test -f app64.ico
+          echo "Archivos reconstruidos:"
+          find . -maxdepth 2 -type f -print | sort
 
       - name: Set v1.0.1 version
         shell: bash
         run: |
           sed -i 's/1\.0\.0/1.0.1/g' main.go
 
-      - name: Create multiresolution cat icon
+      - name: Find and create multiresolution cat icon
         shell: bash
         run: |
+          ICON_SRC=""
+          for f in app64.ico app.ico; do
+            if [ -f "$f" ]; then ICON_SRC="$f"; break; fi
+          done
+          if [ -z "$ICON_SRC" ]; then
+            ICON_SRC="$(find . -maxdepth 2 -type f -iname '*.ico' | head -n1)"
+          fi
+          if [ -z "$ICON_SRC" ]; then
+            echo "No se encontró ningún .ico en el payload" >&2
+            exit 1
+          fi
+          echo "Usando icono fuente: $ICON_SRC"
           sudo apt-get update -y
           sudo apt-get install -y imagemagick
-          convert 'app64.ico[0]' -resize 256x256 icon256.png
+          convert "${ICON_SRC}[0]" -resize 256x256 icon256.png
           convert icon256.png -define icon:auto-resize=256,128,64,48,32,16 app_multisize.ico
           identify app_multisize.ico
 
