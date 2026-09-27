@@ -1,9 +1,9 @@
 {
   "enabled": true,
   "channel": "stable",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "mandatory": false,
-  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.0.1/OP_ED_calificados_de_ChobyMousepad_v1.0.1.exe",
-  "sha256": "2b9147c4347f9f956ca685059658e538d8346bdfe4ed5cfc37706dd9bd913bd6",
-  "notes": "Corrección del icono del gato en el ejecutable de Windows. Sin cambios funcionales respecto de v1.0.0."
+  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.0.3/OP_ED_calificados_de_ChobyMousepad_v1.0.3.exe",
+  "sha256": "d52b9e4a9c433a019cadc10a57e874e6a02c767caf47fc8d9da492dd68e00106",
+  "notes": "Corrige la renovación OAuth de Google y el icono del ejecutable de Windows."
 }
