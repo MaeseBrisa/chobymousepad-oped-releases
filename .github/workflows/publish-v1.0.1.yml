@@ -27,32 +27,32 @@ jobs:
           base64 -d payload.b64 > payload.tar.xz
           tar -xJf payload.tar.xz
           test -f main.go
-          echo "Archivos reconstruidos:"
-          find . -maxdepth 2 -type f -print | sort
 
       - name: Set v1.0.1 version
         shell: bash
         run: |
           sed -i 's/1\.0\.0/1.0.1/g' main.go
 
-      - name: Find and create multiresolution cat icon
+      - name: Extract cat icon from embedded favicon
         shell: bash
         run: |
-          ICON_SRC=""
-          for f in app64.ico app.ico; do
-            if [ -f "$f" ]; then ICON_SRC="$f"; break; fi
-          done
-          if [ -z "$ICON_SRC" ]; then
-            ICON_SRC="$(find . -maxdepth 2 -type f -iname '*.ico' | head -n1)"
-          fi
-          if [ -z "$ICON_SRC" ]; then
-            echo "No se encontró ningún .ico en el payload" >&2
-            exit 1
-          fi
-          echo "Usando icono fuente: $ICON_SRC"
+          python3 - <<'PY'
+          import base64, re
+          s = open('main.go', 'r', encoding='utf-8').read()
+          m = re.search(r'data:image/png;base64,([A-Za-z0-9+/=]+)', s)
+          if not m:
+              raise SystemExit('No se encontró favicon PNG incrustado en main.go')
+          data = base64.b64decode(m.group(1))
+          open('icon256.png','wb').write(data)
+          print('icon256.png bytes:', len(data))
+          PY
+          file icon256.png
+
+      - name: Create multiresolution cat icon
+        shell: bash
+        run: |
           sudo apt-get update -y
           sudo apt-get install -y imagemagick
-          convert "${ICON_SRC}[0]" -resize 256x256 icon256.png
           convert icon256.png -define icon:auto-resize=256,128,64,48,32,16 app_multisize.ico
           identify app_multisize.ico
 
