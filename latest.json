@@ -1,9 +1,9 @@
 {
   "enabled": true,
   "channel": "stable",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "mandatory": false,
-  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.0.4/OP_ED_calificados_de_ChobyMousepad_v1.0.4.exe",
-  "sha256": "ed8b957cc131464efa67fb2c6bbdd7de77505777b72e86c58250ec7c70692de2",
-  "notes": "Corrige texto innecesario "
+  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.0.5/OP_ED_calificados_de_ChobyMousepad_v1.0.5.exe",
+  "sha256": "61d3eab232137353cb9d2ce24ba623243d6967a9659c367ce4a9f731def5229c",
+  "notes": "Renombrar usuario conservando datos; comentarios y reacciones; filtro AnimeThemes; ir a calificar; dos modos de guardado; orden alfabético; logo y créditos."
 }
