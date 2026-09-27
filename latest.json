@@ -1,0 +1,9 @@
+{
+  "enabled": false,
+  "channel": "stable",
+  "version": "0.0.0",
+  "mandatory": false,
+  "download": "",
+  "sha256": "",
+  "notes": "El canal estable aún no tiene una versión oficial publicada."
+}
