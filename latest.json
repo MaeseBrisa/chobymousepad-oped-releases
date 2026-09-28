@@ -1,9 +1,9 @@
-{
+ {
   "enabled": true,
   "channel": "stable",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "mandatory": false,
-  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.0.5/OP_ED_calificados_de_ChobyMousepad_v1.0.5.exe",
-  "sha256": "61d3eab232137353cb9d2ce24ba623243d6967a9659c367ce4a9f731def5229c",
-  "notes": "Renombrar usuario conservando datos; comentarios y reacciones; filtro AnimeThemes; ir a calificar; dos modos de guardado; orden alfabético; logo y créditos."
+  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.1.0/OP_ED_calificados_de_ChobyMousepad_v1.1.0.exe",
+  "sha256": "0d1d5f45fd0b322884f3c619c51b522d89d3aec777c08c5827606cdcf09dd833",
+  "notes": "Mi lista con filtros y 15 entradas por página; listas de usuarios desde Ranking; favoritos en vueltas aleatorias sin repeticiones; avance automático opcional al calificar; corrección de los extremos de la barra."
 }
