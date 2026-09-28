@@ -1,9 +1,9 @@
- {
+{
   "enabled": true,
   "channel": "stable",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "mandatory": false,
-  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.1.0/OP_ED_calificados_de_ChobyMousepad_v1.1.0.exe",
-  "sha256": "0d1d5f45fd0b322884f3c619c51b522d89d3aec777c08c5827606cdcf09dd833",
-  "notes": "Mi lista con filtros y 15 entradas por página; listas de usuarios desde Ranking; favoritos en vueltas aleatorias sin repeticiones; avance automático opcional al calificar; corrección de los extremos de la barra."
+  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.1.1/OP_ED_calificados_de_ChobyMousepad_v1.1.1.exe",
+  "sha256": "b639574f1b4b80809c17f3690689f0739d8000a18a2107ccca3f1fd2f53a8e2c",
+  "notes": "Corregido el cierre de la app: servidor y navegador propio supervisados para evitar procesos residuales. Conserva las funciones y datos de v1.1.0."
 }
