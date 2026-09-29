@@ -1,9 +1,9 @@
 {
   "enabled": true,
   "channel": "stable",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "mandatory": false,
-  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.1.2/OP_ED_calificados_de_ChobyMousepad_v1.1.2.exe",
-  "sha256": "8b73318070176918750b62c4f12fcbe27c3b929fe9e0f75df388c96c176fbeb1",
-  "notes": "Rankings unificados: Global o usuario, filtros y varias notas. Corrección de favoritos fantasma. Filtro por proveedor en Modificar."
+  "download": "https://github.com/MaeseBrisa/chobymousepad-oped-releases/releases/download/v1.1.4/OP_ED_calificados_de_ChobyMousepad_v1.1.4.exe",
+  "sha256": "36d73c7a42dbe5e98092efbad843345f324fe80a632912d7959a75fff508fdeb",
+  "notes": "Se añadió el podio, nuevas opciones de filtro en stats y ahora es posible compartir imagenes en los comentarios"
 }
